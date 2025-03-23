@@ -1,0 +1,65 @@
+basePath: /iapi
+definitions:
+  main.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    type: object
+  main.RefreshTokenResponse:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+info:
+  contact:
+    email: info@dittofi.com
+    name: Dittofi Support Team
+    url: https://www.dittofi.com/dittofi-support
+  description: This is the endpoint documentation for the Dittofi App ID 1276.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: 'Dittofi API - My Super Powerful App (AppID: 1276)'
+  version: "1.0"
+paths:
+  /v1/refresh_token:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint accepts a refresh token and returns a new access
+        token and refresh token.
+      parameters:
+      - description: Refresh Token
+        in: body
+        name: refresh_token
+        required: true
+        schema:
+          $ref: '#/definitions/main.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: returns a new access and refresh token
+          schema:
+            $ref: '#/definitions/main.RefreshTokenResponse'
+        "400":
+          description: refresh token is required
+          schema:
+            type: string
+        "401":
+          description: invalid refresh token
+          schema:
+            type: string
+        "500":
+          description: failed to generate tokens
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Refreshes the access token using a valid refresh token
+      tags:
+      - Authentication
+swagger: "2.0"

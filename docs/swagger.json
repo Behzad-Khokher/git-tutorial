@@ -1,0 +1,99 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the endpoint documentation for the Dittofi App ID 1276.",
+        "title": "Dittofi API - My Super Powerful App (AppID: 1276)",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Dittofi Support Team",
+            "url": "https://www.dittofi.com/dittofi-support",
+            "email": "info@dittofi.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/iapi",
+    "paths": {
+        "/v1/refresh_token": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint accepts a refresh token and returns a new access token and refresh token.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Refreshes the access token using a valid refresh token",
+                "parameters": [
+                    {
+                        "description": "Refresh Token",
+                        "name": "refresh_token",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.RefreshTokenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns a new access and refresh token",
+                        "schema": {
+                            "$ref": "#/definitions/main.RefreshTokenResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "refresh token is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "invalid refresh token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "failed to generate tokens",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.RefreshTokenRequest": {
+            "type": "object",
+            "properties": {
+                "refresh_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.RefreshTokenResponse": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
